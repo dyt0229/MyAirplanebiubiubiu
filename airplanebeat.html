@@ -123,7 +123,10 @@ $('#start').onclick=function(){
     	left:(m.width-66)/2,
     	top:m.height-70,
 		bgImg:"img/myplane1.png",
-		dieImgs:["img/myplane11.png","img/myplane12.png","img/myplane13.png","img/myplane14.png","img/myplane15.png","img/myplane16.png"]
+		dieImgs:["img/myplane11.png","img/myplane12.png","img/myplane13.png","img/myplane14.png","img/myplane15.png","img/myplane16.png"],
+		pegImg:"img/pig-laoayi.gif",
+		pegWidth:200,
+		pegWidth:200
 	});
     myPlane.addEvent();
 	myPlane.shoot();
@@ -141,7 +144,7 @@ $('#start').onclick=function(){
 			bgImg:"img/enemy1_fly_1.png",
 			directionTop:1,
 			incTop:1,
-			timeSpace:20,
+			timeSpace:10,
 			dieImgs:["img/小飞机爆炸.gif"],
 			score:3,
 			hpInc:34/3
@@ -161,7 +164,7 @@ $('#start').onclick=function(){
 			bgImg: "img/a2-1.png",
 			directionTop: 1,
 			incTop: 1,
-			timeSpace: 50,
+			timeSpace: 25,
 			dieImgs: ["img/a2-12.png", "img/a2-13.png", "img/a2-14.png"],
 			score: 10,
 			hpInc:58/10
@@ -181,7 +184,7 @@ $('#start').onclick=function(){
 			bgImg: "img/a3.png",
 			directionTop: 1,
 			incTop: 1,
-			timeSpace: 100,
+			timeSpace: 40,
 			dieImgs: ["img/a3-1.png", "img/a3-2.png", "img/a3-3.png","img/a3-4.png"],
 			score: 25,
 			hpInc:110/25

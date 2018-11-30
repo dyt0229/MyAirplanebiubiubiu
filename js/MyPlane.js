@@ -8,7 +8,11 @@ function MyPlane(obj){
 	this.dieImgs=obj.dieImgs;
 	this.hpBox=null;
 	this.hpCont=null;
-	this.hp=100;
+	this.hp=10;
+	this.peg=null;
+	this.pegImg=obj.pegImg;
+	this.pegWidth=obj.pegWidth;
+	this.pegHeight=obj.pegHeight;
 	this.createUI1();
 }
 
@@ -23,8 +27,16 @@ MyPlane.prototype.createUI1=function(){
 	this.map.domObj.appendChild(this.hpBox);
 	this.hpCont=document.createElement("div");
 	this.hpCont.style.cssText ="position:absolute;height:5px;background:#48f114;";
-	this.hpCont.style.width=(this.width/100)*this.hp+"px";
+	this.hpCont.style.width=(this.width/10)*this.hp+"px";
 	this.hpBox.appendChild(this.hpCont);
+	this.peg=document.createElement("div");
+	this.peg.style.cssText="position:absolute;";
+	this.peg.style.width=this.pegWidth+"px";
+	this.peg.style.height=this.pegHeight+"px";
+	this.peg.style.left=this.left+this.width+10+"px";
+	this.peg.style.top=this.top+5+"px";
+	this.peg.style.backgroundImage="url("+this.pegImg+")";
+	this.map.domObj.appendChild(this.peg);
 }
 MyPlane.prototype.addEvent = function(){
 	this.map.domObj.onmousemove = (event)=>{
@@ -56,6 +68,8 @@ MyPlane.prototype.addEvent = function(){
 		this.domObj.style.top = this.top+"px";
 		this.hpBox.style.left=this.left+"px";
 		this.hpBox.style.top=this.top+"px";
+		this.peg.style.left = this.left + this.width + 10 + "px";
+		this.peg.style.top = this.top + 5 + "px";
 		//边动边判断有没有被敌机击中
 		this.isHit();
 	}
@@ -133,7 +147,12 @@ MyPlane.prototype.isHit=function(){
 			//敌机进入战场才开始判断
 			if(myPleft<eRight&&myPRight>eLeft&&myPTop<eTop&&myPBottom>eTop){
 				this.hp--;
-				this.hpCont.style.width =(this.width/100)*this.hp+"px";
+				this.hpCont.style.width =(this.width/10)*this.hp+"px";
+				enemyPlanes[i].score--;
+				if (enemyPlanes[i].score<=0){
+					enemyPlanes[i].die();
+				}
+				
 				// let shineTimer=setInterval(() => {
 				// 	this.domObj.style.transition="transform:scale(1.1);";
 				// 	this.domObj.style.display="none";
@@ -143,10 +162,10 @@ MyPlane.prototype.isHit=function(){
 				// 	this.domObj.style.transition = "transform:scale(1);";
 				// 	this.domObj.style.display = "blcok";
 				// }
-				if(this.hp<40){
+				if(this.hp<6){
 					this.hpCont.style.backgroundColor = "yellow";
 				}
-				if(this.hp<=20){
+				if(this.hp<=2){
 					this.hpCont.style.backgroundColor="red";
 				}
 				
@@ -177,5 +196,5 @@ MyPlane.prototype.boom=function () {
 		}
 		this.domObj.style.backgroundImage="url("+this.dieImgs[ord]+")";
 		
-	},100);
+	},200);
  }

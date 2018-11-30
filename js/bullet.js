@@ -55,7 +55,12 @@ Bullet.prototype.isHit=function(){
 				
 				enemyPlanes[i].score--;
 				enemyPlanes[i].hpCont.style.width = enemyPlanes[i].score*enemyPlanes[i].hpInc+"px";
-				
+				if (enemyPlanes[i].score * enemyPlanes[i].hpInc<enemyPlanes[i].width*0.7){
+					enemyPlanes[i].hpCont.style.background="yellow";
+				}
+				if (enemyPlanes[i].score * enemyPlanes[i].hpInc < enemyPlanes[i].width * 0.4) {
+					enemyPlanes[i].hpCont.style.background = "red";
+				}
 	
 				this.myPlane.allScore++;
 				this.myPlane.map.myScore = this.myPlane.allScore;
