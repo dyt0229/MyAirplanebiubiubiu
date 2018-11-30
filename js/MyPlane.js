@@ -6,10 +6,26 @@ function MyPlane(obj){
 	this.bullets = [];
 	this.allScore=0;
 	this.dieImgs=obj.dieImgs;
+	this.hpBox=null;
+	this.hpCont=null;
+	this.hp=100;
+	this.createUI1();
 }
 
 MyPlane.prototype = new MoverObj();
 
+MyPlane.prototype.createUI1=function(){
+	this.hpBox=document.createElement("div");
+	this.hpBox.style.cssText="position:absolute;height:5px;border:1px solid blue;";
+	this.hpBox.style.width=this.width+"px";
+	this.hpBox.style.left=this.left+"px";
+	this.hpBox.style.top=this.top+"px";
+	this.map.domObj.appendChild(this.hpBox);
+	this.hpCont=document.createElement("div");
+	this.hpCont.style.cssText ="position:absolute;height:5px;background:#48f114;";
+	this.hpCont.style.width=(this.width/100)*this.hp+"px";
+	this.hpBox.appendChild(this.hpCont);
+}
 MyPlane.prototype.addEvent = function(){
 	this.map.domObj.onmousemove = (event)=>{
 		
@@ -38,6 +54,8 @@ MyPlane.prototype.addEvent = function(){
 		
 		this.domObj.style.left = this.left+"px";
 		this.domObj.style.top = this.top+"px";
+		this.hpBox.style.left=this.left+"px";
+		this.hpBox.style.top=this.top+"px";
 		//边动边判断有没有被敌机击中
 		this.isHit();
 	}
@@ -114,10 +132,29 @@ MyPlane.prototype.isHit=function(){
 		if(eBottom>0){
 			//敌机进入战场才开始判断
 			if(myPleft<eRight&&myPRight>eLeft&&myPTop<eTop&&myPBottom>eTop){
-				this.boom();
-				enemyPlanes[i].die();
-				window.clearInterval(this.myTimer);
+				this.hp--;
+				this.hpCont.style.width =(this.width/100)*this.hp+"px";
+				// let shineTimer=setInterval(() => {
+				// 	this.domObj.style.transition="transform:scale(1.1);";
+				// 	this.domObj.style.display="none";
+				// }, this.timeSpace);
+				// if(shineTimer){
+				// 	window.clearInterval(shineTimer);
+				// 	this.domObj.style.transition = "transform:scale(1);";
+				// 	this.domObj.style.display = "blcok";
+				// }
+				if(this.hp<40){
+					this.hpCont.style.backgroundColor = "yellow";
+				}
+				if(this.hp<=20){
+					this.hpCont.style.backgroundColor="red";
+				}
 				
+				if(this.hp<=0){
+					this.boom();
+					enemyPlanes[i].die();
+					window.clearInterval(this.myTimer);
+				}
 			}
 		}
 	}
@@ -134,6 +171,7 @@ MyPlane.prototype.boom=function () {
 		if(ord>this.dieImgs.length-1){
 			window.clearInterval(dieTimer);
 			this.domObj.remove();
+			this.hpBox.remove();
 			alert("game over!当前得分"+this.allScore+"分! 加油再战！");
 			location.href = "airplanebeat.html";
 		}

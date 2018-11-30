@@ -146,12 +146,10 @@ $('#start').onclick=function(){
 			score:3,
 			hpInc:34/3
 		});
-		
-		// e1.createUI();
-		
 		e1.go();
 		m.enemyPlanes.push(e1);
 	},1000);
+	
 	let enTimer1 = setInterval(function () {
 		let left1 = parseInt(Math.random() * (m.width - 58));
 		let e2 = new EnemyPlane({
@@ -168,11 +166,10 @@ $('#start').onclick=function(){
 			score: 10,
 			hpInc:58/10
 		});
-		// e1.createUI();
 		e2.go();
-		
 		m.enemyPlanes.push(e2);
 	}, 2500);
+
 	let enTimer2 = setInterval(function () {
 		let left1 = parseInt(Math.random() * (m.width - 110));
 		let e3 = new EnemyPlane({
@@ -189,9 +186,7 @@ $('#start').onclick=function(){
 			score: 25,
 			hpInc:110/25
 		});
-		// e1.createUI();
 		e3.go();
-		
 		m.enemyPlanes.push(e3);
 	}, 5000);
 

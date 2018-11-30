@@ -12,7 +12,7 @@ function EnemyPlane(obj) {
 EnemyPlane.prototype=new MoverObj();
 EnemyPlane.prototype.createUI1=function(){
     this.hpBox=document.createElement("div");
-    this.hpBox.style.cssText="position:absolute;width:100px;height:5px;border:1px solid green;";
+    this.hpBox.style.cssText="position:absolute;height:5px;border:1px solid green;";
     this.hpBox.style.width = this.width + "px";
     this.hpBox.style.left=this.left+"px";
     this.hpBox.style.top=this.top+"px";

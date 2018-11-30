@@ -56,8 +56,7 @@ Bullet.prototype.isHit=function(){
 				enemyPlanes[i].score--;
 				enemyPlanes[i].hpCont.style.width = enemyPlanes[i].score*enemyPlanes[i].hpInc+"px";
 				
-				
-				// console.info(this.myPlane.allScore);
+	
 				this.myPlane.allScore++;
 				this.myPlane.map.myScore = this.myPlane.allScore;
 				// console.info(this.myPlane.allScore);
