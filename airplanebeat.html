@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>airplanebeat</title>
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	body{
+		background: black;
+	}
+	#box{
+		width:270px;
+		height: 540px;
+		position: fixed;
+		top:0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+		/*background: red;*/
+	}
+	#phone{
+		width:270px;
+		/*height: 600px;*/
+		position: fixed;
+		top:0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+	#bgArea{
+		position: absolute;
+		top:60px;
+		left: 17px;
+		/*background: pink;*/
+		width: 236px;
+		height: 416px;
+		background: url(img/bg_1.png) repeat-y;
+		background-size: 236px 416px;
+		overflow: hidden;
+	}
+	button{
+		width:100px;
+		height: 30px;
+		border: 1px solid black;
+		border-radius: 15px;
+		display: block;
+		margin:0 auto;
+		margin-top:20px;
+		outline: none;
+	}
+	#start{
+		margin-top:220px;
+	}
+	button:hover{
+		background: black;
+		color: white;
+	}
+</style>
+</head>
+<body>
+	<div id="box">
+		<img id="phone" src="img/phone.png"/>
+		<div id="bgArea">
+			<button id="start">开始游戏</button>
+			<button id="ranking">排行榜</button>
+			<button id="exit">退出游戏</button>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="js/map.js"></script>
+<script type="text/javascript" src="js/moveObj.js"></script>
+<script type="text/javascript" src="js/MyPlane.js"></script>
+<script type="text/javascript" src="js/enemyPlane.js"></script>
+<script type="text/javascript" src="js/bullet.js"></script>
+<script type="text/javascript">
+	function $(str) {
+			if (str.charAt(0) == "#") {
+				return document.getElementById(str.substring(1));
+			} else if (str.charAt(0) == ".") {
+				return document.getElementsByClassName(str.substring(1));
+			} else {
+				return document.getElementsByTagName(str);
+			}
+		}
+ 
+ function hide(){
+ 	$('#start').style.display='none';
+ 	$('#ranking').style.display='none';
+ 	$('#exit').style.display='none';
+ 	$('#bgArea').style.backgroundImage='url(img/bg_3.jpg)';
+ }
+ 	
+
+// function myplane(){
+// 	let bigPlane=document.createElement('div');
+// 	bigPlane.style.backgroundImage='url(img/我的飞机.gif)';
+// 	bigPlane.style.cssText="position:absolute;left:200;top:300";
+// 	document.bgShow.appendChild(bigPlane);
+	
+// }
+
+
+$('#start').onclick=function(){
+ 	hide();
+ 	
+ 	let m =new Map({
+ 		width:236,
+ 		height:416,
+ 		bgImg:"img/bg_3.jpg"
+ 	});
+    //创建我方战机
+    
+    let myPlane= new MyPlane({
+    	map:m,
+    	width:66,
+    	height:70,
+    	left:(m.width-66)/2,
+    	top:m.height-70,
+		bgImg:"img/myplane1.png",
+		dieImgs:["img/myplane11.png","img/myplane12.png","img/myplane13.png","img/myplane14.png","img/myplane15.png","img/myplane16.png"]
+	});
+    myPlane.addEvent();
+	myPlane.shoot();
+	m.myPlanes.push(myPlane);
+	
+	//创建敌方战机
+	let enTimer=setInterval(function(){
+		let left1=parseInt(Math.random()*(m.width-34));
+		let e1=new EnemyPlane({
+			map:m,
+			width:34,
+			height:24,
+			left:left1,
+			top:-1*24,
+			bgImg:"img/enemy1_fly_1.png",
+			directionTop:1,
+			incTop:1,
+			timeSpace:20,
+			dieImgs:["img/小飞机爆炸.gif"],
+			score:3,
+			hpInc:34/3
+		});
+		
+		// e1.createUI();
+		
+		e1.go();
+		m.enemyPlanes.push(e1);
+	},1000);
+	let enTimer1 = setInterval(function () {
+		let left1 = parseInt(Math.random() * (m.width - 58));
+		let e2 = new EnemyPlane({
+			map: m,
+			width: 58,
+			height: 69,
+			left: left1,
+			top: -1 * 69,
+			bgImg: "img/a2-1.png",
+			directionTop: 1,
+			incTop: 1,
+			timeSpace: 50,
+			dieImgs: ["img/a2-12.png", "img/a2-13.png", "img/a2-14.png"],
+			score: 10,
+			hpInc:58/10
+		});
+		// e1.createUI();
+		e2.go();
+		
+		m.enemyPlanes.push(e2);
+	}, 2500);
+	let enTimer2 = setInterval(function () {
+		let left1 = parseInt(Math.random() * (m.width - 110));
+		let e3 = new EnemyPlane({
+			map: m,
+			width: 110,
+			height: 72,
+			left: left1,
+			top: -1 * 72,
+			bgImg: "img/a3.png",
+			directionTop: 1,
+			incTop: 1,
+			timeSpace: 100,
+			dieImgs: ["img/a3-1.png", "img/a3-2.png", "img/a3-3.png","img/a3-4.png"],
+			score: 25,
+			hpInc:110/25
+		});
+		// e1.createUI();
+		e3.go();
+		
+		m.enemyPlanes.push(e3);
+	}, 5000);
+
+	
+ }
+
+ $('#ranking').onclick=function(){
+ 	alert("敬请期待");
+ }
+ $('#exit').onclick=function(){
+ 	window.close();
+ }
+</script>
