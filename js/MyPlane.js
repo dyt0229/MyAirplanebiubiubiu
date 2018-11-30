@@ -23,18 +23,18 @@ MyPlane.prototype.createUI1=function(){
 	this.hpBox.style.cssText="position:absolute;height:5px;border:1px solid blue;";
 	this.hpBox.style.width=this.width+"px";
 	this.hpBox.style.left=this.left+"px";
-	this.hpBox.style.top=this.top+"px";
+	this.hpBox.style.top=this.top-5+"px";
 	this.map.domObj.appendChild(this.hpBox);
 	this.hpCont=document.createElement("div");
 	this.hpCont.style.cssText ="position:absolute;height:5px;background:#48f114;";
 	this.hpCont.style.width=(this.width/10)*this.hp+"px";
 	this.hpBox.appendChild(this.hpCont);
 	this.peg=document.createElement("div");
-	this.peg.style.cssText="position:absolute;";
+	this.peg.style.cssText="position:absolute;z-Index:5";
 	this.peg.style.width=this.pegWidth+"px";
 	this.peg.style.height=this.pegHeight+"px";
 	this.peg.style.left=this.left+this.width+10+"px";
-	this.peg.style.top=this.top+5+"px";
+	this.peg.style.top=this.top+10+"px";
 	this.peg.style.backgroundImage="url("+this.pegImg+")";
 	this.map.domObj.appendChild(this.peg);
 }
@@ -66,10 +66,23 @@ MyPlane.prototype.addEvent = function(){
 		
 		this.domObj.style.left = this.left+"px";
 		this.domObj.style.top = this.top+"px";
+
+	
 		this.hpBox.style.left=this.left+"px";
-		this.hpBox.style.top=this.top+"px";
-		this.peg.style.left = this.left + this.width + 10 + "px";
-		this.peg.style.top = this.top + 5 + "px";
+		this.hpBox.style.top=this.top-5+"px";
+
+
+		let pegLeft=this.left+this.width+10;
+		let pegTop=this.top+10;
+		this.peg.style.left=pegLeft+"px";
+		this.peg.style.top=pegTop+"px";
+		if(pegLeft>=this.map.width-this.width){
+			this.peg.style.left=pegLeft-this.width*2-10*2+"px";
+			this.peg.style.top=pegTop+"px";
+		}
+		if(pegTop<=0){
+			this.peg.style.top=pegTop+this.height*2+"px";
+		}
 		//边动边判断有没有被敌机击中
 		this.isHit();
 	}

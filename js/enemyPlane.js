@@ -15,7 +15,7 @@ EnemyPlane.prototype.createUI1=function(){
     this.hpBox.style.cssText="position:absolute;height:5px;border:1px solid blue;";
     this.hpBox.style.width = this.width + "px";
     this.hpBox.style.left=this.left+"px";
-    this.hpBox.style.top=this.top+"px";
+    this.hpBox.style.top=this.top-5+"px";
     this.map.domObj.appendChild(this.hpBox);
     this.hpCont=document.createElement("div");
     this.hpCont.style.cssText ="position:absolute;height:5px;background:#48f114;";
@@ -33,7 +33,7 @@ EnemyPlane.prototype.go=function(){
         }
         //外观
         this.domObj.style.top=this.top+"px";
-        this.hpBox.style.top=this.top+"px";
+        this.hpBox.style.top=this.top-5+"px";
     }, this.timeSpace);
 }
 EnemyPlane.prototype.dispear=function(){
